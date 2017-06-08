@@ -5,17 +5,21 @@ import os
 
 app = Flask(__name__)
 
+DB_CONFIG = {
+	'host': 	os.environ['DATABASE_HOST'], 
+	'port':    	os.environ['DATABASE_PORT'],
+    'user':    	os.environ['DATABASE_USER'], 
+    'password':	os.environ['DATABASE_PASSWORD'],
+    'dbname':	os.environ['DATABASE_NAME']
+}
+
 def execute(query):
     """
     Execute the query against the database.
     """
     con = None
     try:
-        con = psycopg2.connect(host=    os.environ['DATABASE_HOST'], 
-                               port=    os.environ['DATABASE_PORT'],
-                               user=    os.environ['DATABASE_USER'], 
-                               password=os.environ['DATABASE_PASSWORD'],
-                               dbname=  os.environ['DATABASE_NAME']) 
+        con = psycopg2.connect(**DB_CONFIG) 
         cur = con.cursor()
         cur.execute(query)
         return cur.fetchall()
