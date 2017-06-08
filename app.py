@@ -1,6 +1,7 @@
 from flask import Flask
 import psycopg2
 import json
+import os
 
 app = Flask(__name__)
 
@@ -10,7 +11,11 @@ def execute(query):
     """
     con = None
     try:
-        con = psycopg2.connect(host="localhost", user="dbuser", dbname="nidc", password="dbpass")
+        con = psycopg2.connect(host=    os.environ['DATABASE_HOST'], 
+                               port=    os.environ['DATABASE_PORT'],
+                               user=    os.environ['DATABASE_USER'], 
+                               password=os.environ['DATBASE_PASSWORD'],
+                               dbname=  os.environ['DATABASE_NAME']) 
         cur = con.cursor()
         cur.execute(query)
         return cur.fetchall()
