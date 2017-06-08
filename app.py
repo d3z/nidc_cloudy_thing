@@ -14,7 +14,7 @@ def execute(query):
         con = psycopg2.connect(host=    os.environ['DATABASE_HOST'], 
                                port=    os.environ['DATABASE_PORT'],
                                user=    os.environ['DATABASE_USER'], 
-                               password=os.environ['DATBASE_PASSWORD'],
+                               password=os.environ['DATABASE_PASSWORD'],
                                dbname=  os.environ['DATABASE_NAME']) 
         cur = con.cursor()
         cur.execute(query)
